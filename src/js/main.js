@@ -24,10 +24,12 @@ formEl.addEventListener('submit', async function fetchAlldata(event) {
     infoPanelEl.innerHTML = '';
     let city = formInputEl.value;
     try {
-        let res = await fetch(`http://api.positionstack.com/v1/forward?access_key=${positionStackApiKey}&query=${city}`)
+        let res = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${OWapiKey}`)
         let data = await res.json();
-        var place = data.data[0]
-        var coordinates = [place.latitude, place.longitude]
+        let place = data[0]
+        console.log(place)
+        let coordinates = [place.lat, place.lon]
+        console.log(coordinates)
 
         res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates[0]}&lon=${coordinates[1]}&appid=${OWapiKey}`)
         data = await res.json();
